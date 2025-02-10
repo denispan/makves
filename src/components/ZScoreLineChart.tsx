@@ -119,15 +119,15 @@ const CustomLegend = () => {
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <div style={{ width: '30px', height: '2px', backgroundColor: '#8884d8' }} />
-        <span>PV (normal)</span>
+        <span>pv</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <div style={{ width: '30px', height: '2px', backgroundColor: '#82ca9d' }} />
-        <span>UV (normal)</span>
+        <span>uv</span>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <div style={{ width: '30px', height: '2px', backgroundColor: '#ff0000' }} />
-        <span>|z-score| {">"} 1</span>
+        <span>|z-score| &gt; 1</span>
       </div>
     </div>
   );
