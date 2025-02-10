@@ -82,27 +82,26 @@ const createGradientStops = (data: DataPoint[], key: 'pv' | 'uv', zScoreKey: 'pv
   return stops;
 };
 
-interface CustomDotProps {
+interface CustomActiveDotProps {
   cx?: number;
   cy?: number;
-  value?: number;
-  stroke?: string;
   payload?: DataPoint;
   dataKey: 'pv' | 'uv';
 }
 
-const CustomDot = (props: CustomDotProps) => {
-  const { cx, cy, payload, dataKey, stroke } = props;
+const CustomActiveDot = (props: CustomActiveDotProps) => {
+  const { cx, cy, payload, dataKey } = props;
   if (!cx || !cy || !payload) return null;
 
   const zScore = dataKey === 'pv' ? payload.pvZScore : payload.uvZScore;
-  const color = Math.abs(zScore || 0) > 1 ? '#ff0000' : stroke;
+  const defaultColor = dataKey === 'pv' ? '#8884d8' : '#82ca9d';
+  const color = Math.abs(zScore || 0) > 1 ? '#ff0000' : defaultColor;
 
   return (
     <circle
       cx={cx}
       cy={cy}
-      r={4}
+      r={8}
       fill={color}
     />
   );
@@ -158,15 +157,16 @@ export default function ZScoreLineChart() {
           type="monotone"
           dataKey="pv"
           stroke="url(#pvGradient)"
-          dot={<CustomDot dataKey="pv" />}
-          activeDot={{ r: 8 }}
+          dot={{ fill: '#000000' }}
+          activeDot={<CustomActiveDot dataKey="pv" />}
           strokeWidth={2}
         />
         <Line
           type="monotone"
           dataKey="uv"
           stroke="url(#uvGradient)"
-          dot={<CustomDot dataKey="uv" />}
+          dot={{ fill: '#000000' }}
+          activeDot={<CustomActiveDot dataKey="uv" />}
           strokeWidth={2}
         />
       </LineChart>
