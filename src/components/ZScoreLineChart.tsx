@@ -108,6 +108,31 @@ const CustomDot = (props: CustomDotProps) => {
   );
 };
 
+const CustomLegend = () => {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      marginTop: '10px',
+      gap: '20px'
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '30px', height: '2px', backgroundColor: '#8884d8' }} />
+        <span>PV (normal)</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '30px', height: '2px', backgroundColor: '#82ca9d' }} />
+        <span>UV (normal)</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '30px', height: '2px', backgroundColor: '#ff0000' }} />
+        <span>|z-score| {">"} 1</span>
+      </div>
+    </div>
+  );
+};
+
 export default function ZScoreLineChart() {
   // Calculate z-scores for both series
   const enrichedData = useMemo(() => {
@@ -153,7 +178,7 @@ export default function ZScoreLineChart() {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Legend />
+        <Legend content={<CustomLegend />} verticalAlign="bottom" height={36} />
         <Line
           type="monotone"
           dataKey="pv"
