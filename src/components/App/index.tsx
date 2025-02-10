@@ -1,7 +1,10 @@
-import ZScoreLineChart from '../ZScoreLineChart';
+import * as React from 'react';
+import ZScoreChart from '../ZScoreChart';
 
-export default function App() {
+const App: React.FC = ()=> {
   return (
-      <ZScoreLineChart />
+      <ZScoreChart />
   );
 }
+
+export default App;
