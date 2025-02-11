@@ -1,4 +1,5 @@
 import {DataPoint} from '../../types/common.ts';
+import {CHARTS, COLORS} from '../../constants.ts';
 
 export const calculateZScores = (values: number[]): number[] => {
   const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
@@ -7,16 +8,16 @@ export const calculateZScores = (values: number[]): number[] => {
   return values.map(value => (value - mean) / stdDev);
 };
 
-export const createGradientStops = (data: DataPoint[], key: 'pv' | 'uv', zScoreKey: 'pvZScore' | 'uvZScore') => {
+export const createGradientStops = (data: DataPoint[], key: keyof typeof CHARTS, zScoreKey: 'pvZScore' | 'uvZScore') => {
   const stops: { offset: string; color: string }[] = [];
   const totalPoints = data.length - 1;
-  const defaultColor = key === 'pv' ? '#8884d8' : '#82ca9d';
+  const defaultColor = key === CHARTS.pv ? COLORS.purple : COLORS.blue;
 
   // Add initial stop
   const firstZScore = data[0][zScoreKey] || 0;
   stops.push({
     offset: '0%',
-    color: Math.abs(firstZScore) > 1 ? '#ff0000' : defaultColor
+    color: Math.abs(firstZScore) > 1 ? COLORS.red : defaultColor
   });
 
   // Add stops for transitions between points
@@ -24,8 +25,8 @@ export const createGradientStops = (data: DataPoint[], key: 'pv' | 'uv', zScoreK
     const percentage = (i / totalPoints) * 100;
     const prevZScore = data[i - 1][zScoreKey] || 0;
     const currentZScore = data[i][zScoreKey] || 0;
-    const prevColor = Math.abs(prevZScore) > 1 ? '#ff0000' : defaultColor;
-    const currentColor = Math.abs(currentZScore) > 1 ? '#ff0000' : defaultColor;
+    const prevColor = Math.abs(prevZScore) > 1 ? COLORS.red : defaultColor;
+    const currentColor = Math.abs(currentZScore) > 1 ? COLORS.red : defaultColor;
 
     // Only add transition stops if the color changes
     if (prevColor !== currentColor) {
@@ -47,7 +48,7 @@ export const createGradientStops = (data: DataPoint[], key: 'pv' | 'uv', zScoreK
   const lastZScore = data[data.length - 1][zScoreKey] || 0;
   stops.push({
     offset: '100%',
-    color: Math.abs(lastZScore) > 1 ? '#ff0000' : defaultColor
+    color: Math.abs(lastZScore) > 1 ? COLORS.red : defaultColor
   });
 
   return stops;

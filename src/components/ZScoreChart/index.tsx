@@ -5,6 +5,7 @@ import {data} from '../../mocks/data.ts';
 import CustomLegend from '../CustomLegend';
 import {calculateZScores, createGradientStops} from './helpers.ts';
 import CustomDot from '../CustomDot';
+import {CHARTS} from '../../constants.ts';
 
 const ZScoreChart: React.FC = ()=> {
   const enrichedData = useMemo(() => {
@@ -20,8 +21,8 @@ const ZScoreChart: React.FC = ()=> {
     }));
   }, []);
 
-  const pvStops = createGradientStops(enrichedData, 'pv', 'pvZScore');
-  const uvStops = createGradientStops(enrichedData, 'uv', 'uvZScore');
+  const pvStops = createGradientStops(enrichedData, CHARTS.pv, 'pvZScore');
+  const uvStops = createGradientStops(enrichedData, CHARTS.uv, 'uvZScore');
 
   return (
     <ResponsiveContainer width="95%" height={600} >
@@ -53,18 +54,18 @@ const ZScoreChart: React.FC = ()=> {
         <Legend content={<CustomLegend />} verticalAlign="bottom" height={36} />
         <Line
           type="monotone"
-          dataKey="pv"
+          dataKey={CHARTS.pv}
           stroke="url(#pvGradient)"
-          dot={<CustomDot dataKey="pv" />}
-          activeDot={<CustomDot dataKey="pv" isActive />}
+          dot={<CustomDot dataKey={CHARTS.pv} />}
+          activeDot={<CustomDot dataKey={CHARTS.pv} isActive />}
           strokeWidth={2}
         />
         <Line
           type="monotone"
-          dataKey="uv"
+          dataKey={CHARTS.uv}
           stroke="url(#uvGradient)"
-          dot={<CustomDot dataKey="uv" />}
-          activeDot={<CustomDot dataKey="uv" isActive />}
+          dot={<CustomDot dataKey={CHARTS.uv} />}
+          activeDot={<CustomDot dataKey={CHARTS.uv} isActive />}
           strokeWidth={2}
         />
       </LineChart>
