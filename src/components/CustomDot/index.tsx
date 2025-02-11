@@ -1,13 +1,13 @@
 import {CustomDotProps} from '../../types/common.ts';
 import * as React from 'react';
-import {COLORS} from '../../constants.ts';
+import {CHARTS, COLORS} from '../../constants.ts';
 
 const CustomDot: React.FC<CustomDotProps> = (props) => {
-  const { cx, cy, payload, dataKey, isActive } = props;
+  const {cx, cy, payload, dataKey, isActive} = props;
   if (!cx || !cy || !payload) return null;
 
-  const zScore = dataKey === 'pv' ? payload.pvZScore : payload.uvZScore;
-  const defaultColor = dataKey === 'pv' ? COLORS.purple : COLORS.blue;
+  const zScore = dataKey === CHARTS.pv ? payload.pvZScore : payload.uvZScore;
+  const defaultColor = dataKey === CHARTS.pv ? COLORS.purple : COLORS.blue;
   const color = Math.abs(zScore || 0) > 1 ? COLORS.red : defaultColor;
 
   return (
@@ -20,4 +20,4 @@ const CustomDot: React.FC<CustomDotProps> = (props) => {
   );
 };
 
-export default CustomDot
+export default CustomDot;
